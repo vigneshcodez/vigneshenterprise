@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}
+{% endblock title %}
+
+{% block style %}
+{% endblock style  %}
+
+
+{% block content %}
+
+
+
+<style>
+    form label,input{
+        width: 100%;
+     
+    }
+    form input{
+        border: 2px solid rgb(108, 108, 108);
+    }
+    </style>
+    
+    <div class="d-flex justify-content-center flex-column align-items-center" style="width: 100%;">
+      <h2>Request Password Reset</h2>
+      <form method="post"  style="width: 300px;margin: auto;">
+        {% csrf_token %}
+
+    
+        <label for="email" class="d-block mt-4">Email:</label>
+        <input type="email" class="ps-2 py-2" name="email" id="email" placeholder="ex : yourmail@gmail.com" required /><br />
+    
+
+    
+        <button type="submit" class="mt-4 btn btn-primary">Send Reset Link</button>
+      </form>
+    </div>
+
+
+
+{% endblock content %}

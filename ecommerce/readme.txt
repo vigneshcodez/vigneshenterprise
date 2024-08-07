@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+{% block title %}
+{% endblock title %}
+
+{% block style %}
+{% endblock style  %}
+
+
+{% block content %}
+{% endblock content %}

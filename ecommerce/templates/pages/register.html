@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %} {% block title %} register {% endblock title %}
+{% block style %} {% endblock style %} {% block content %}
+<style>
+form label,input{
+    width: 100%;
+ 
+}
+form input{
+    border: 2px solid rgb(108, 108, 108);
+}
+</style>
+
+<div class="d-flex justify-content-center flex-column align-items-center" style="width: 100%;">
+  <h2>Register</h2>
+  <form method="post"  style="width: 300px;margin: auto;">
+    {% csrf_token %}
+    <label for="name" class="d-block mt-4">Name:</label>
+    <input type="text" class="ps-2 py-2" name="name" id="name" placeholder="ex: vignesh" required /><br />
+
+    <label for="mobilenumber" class="d-block mt-4">Mobile Number:</label>
+    <input type="number" class="ps-2 py-2" name="mobilenumber" id="mobilenumber" placeholder="ex: 9876543210" required /><br />
+
+    <label for="email" class="d-block mt-4">Email:</label>
+    <input type="email" class="ps-2 py-2" name="email" id="email" placeholder="ex : yourmail@gmail.com" required /><br />
+
+    <label for="pass1" class="d-block mt-4">Password:</label>
+    <input type="password" class="ps-2 py-2" name="pass1" id="pass1"   required /><br />
+
+    <label for="pass2" class="d-block mt-4">Confirm Password:</label>
+    <input type="password" class="ps-2 py-2" name="pass2" id="pass2"  required /><br />
+
+    <button type="submit" class="mt-4 btn btn-primary">Register</button>
+  </form>
+</div>
+{% endblock content %}
