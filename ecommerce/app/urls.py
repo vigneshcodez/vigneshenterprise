@@ -10,6 +10,14 @@ from .authenticationviews import (
 )
 
 from .cartviews import (add_to_cart,update_cart_item,cart_detail,remove_from_cart)
+from .checkoutview import (
+    checkout,
+    cancel_order,
+    razorpay_webhook,
+    checkoutpage,
+    checkout,
+    orders
+)
 
 urlpatterns = [
 
@@ -21,6 +29,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', ActivateAccountView.as_view(), name='activate'),
     path('password-reset/', RequestResetEmailView.as_view(), name='password_reset'),
     path('set-new-password/<uidb64>/<token>/', SetNewPasswordView.as_view(), name='set_new_password'),
+    path('address', views.address, name='address'),
 
     # 
     path('shop/<str:name>', views.shop, name='shop'),
@@ -31,5 +40,13 @@ urlpatterns = [
     path('add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),  # Ensure the trailing slash
     path('remove_from_cart/<int:product_id>/', remove_from_cart, name='remove_from_cart'),
     path('update_cart_item/<int:product_id>/<str:action>/', update_cart_item, name='update_cart_item'), 
+    path('orders/', orders, name='orders'), 
     
+    # 
+    path('checkout/', checkout, name='checkout'),
+    path('cancel_order/<int:order_id>/', cancel_order, name='cancel_order'),
+
+    # Razorpay Webhook for Payment Confirmation
+    path('payment/webhook/', razorpay_webhook, name='razorpay_webhook'),
+    path('checkoutpage/', checkoutpage, name='checkoutpage'),
 ]

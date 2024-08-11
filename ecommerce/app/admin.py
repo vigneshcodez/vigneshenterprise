@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Category, SubCategory, Slider, Product
+from .models import CustomUser, Category, SubCategory, Slider, Product,Address, Order, OrderItem,City   
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -48,3 +48,7 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Slider, SliderAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Address)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(City)

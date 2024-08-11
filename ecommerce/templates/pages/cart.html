@@ -95,7 +95,7 @@ Shopping Cart
                         <h5>Total</h5>
                         <h5 id="total">&#8377;{{ cart.get_total|add:"10" }}</h5>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="checkout">Proceed To Checkout</button>
+                    <a href="{% url 'checkoutpage' %}" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</a>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@ Shopping Cart
 </div>
 <!-- Cart End -->
 
-<!-- <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.btn-plus, .btn-minus').forEach(button => {
             button.addEventListener('click', function(event) {
@@ -121,53 +121,21 @@ Shopping Cart
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.total_price);
-                    console.log(data.cart_total);
                     
                     quantityInput.value = data.quantity;
-                    event.target.closest('tr').querySelector('.align-middle:nth-child(4)').innerText = `₹${data.total_price}`;
-                    document.querySelector('.bg-light .d-flex .align-middle:nth-child(2)').innerText = `₹${data.cart_total}`;
+                    
+                    // Update the total price of the item
+                    const totalCell = event.target.closest('tr').querySelector('.align-middle:nth-of-type(4)');
+                    if (totalCell) {
+                        totalCell.innerText = `₹${data.total_price}`;
+                    }
+
+                    // Update the cart total
+                    const subtotalElement = document.getElementById('subtotal').innerText = `₹${data.cart_total}`;
+                    const totalElement = document.getElementById('total').innerText = `₹${data.cart_total + 10}`;
                 });
             });
         });
     });
-</script> -->
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.btn-plus, .btn-minus').forEach(button => {
-        button.addEventListener('click', function(event) {
-            const productId = event.target.closest('button').getAttribute('data-id');
-            const action = event.target.closest('button').classList.contains('btn-plus') ? 'increase' : 'decrease';
-            const quantityInput = event.target.closest('.quantity').querySelector('input');
-
-            fetch(`/update_cart_item/${productId}/${action}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.total_price);
-                
-                quantityInput.value = data.quantity;
-                
-                // Update the total price of the item
-                const totalCell = event.target.closest('tr').querySelector('.align-middle:nth-of-type(4)');
-                if (totalCell) {
-                    totalCell.innerText = `₹${data.total_price}`;
-                }
-
-                // Update the cart total
-                // const subtotalElement = document.querySelector('.bg-light .d-flex:nth-of-type(1) .d-flex:nth-of-type(2) h6');
-                const subtotalElement = document.getElementById('subtotal').innerHTML=data.cart_total
-                const totalElement = document.getElementById('total').innerHTML=data.cart_total + 10
-                const shippingElement = document.querySelector('.bg-light .d-flex:nth-of-type(1) .d-flex:nth-of-type(2) + .d-flex .font-weight-medium:nth-of-type(2)');
-            });
-        });
-    });
-});
-
 </script>
 {% endblock content %}

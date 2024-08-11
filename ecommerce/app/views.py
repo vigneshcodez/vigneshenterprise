@@ -1,7 +1,10 @@
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
-from .models import Category, SubCategory, Product,Slider
+from django.shortcuts import get_object_or_404, render,redirect
+from .models import Category, SubCategory, Product,Slider,Address
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from .forms import AddressForm
 # Create your views here.
 
 
@@ -32,8 +35,7 @@ def about(request):
 #     }
 #     return render(request, 'pages/shop.html', context)
 
-from django.http import JsonResponse
-from django.core.paginator import Paginator
+
 
 def shop(request, name=None):
     category = get_object_or_404(Category, name=name)
@@ -82,3 +84,18 @@ def productdetial(request, id):
         'product': product
     }
     return render(request, 'pages/productdetial.html', context)
+
+def address(request):
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            # Save the form with the user
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            return redirect('address')  # Replace 'success_url' with your actual success URL
+    else:
+        form = AddressForm()
+        data = Address.objects.filter(user=request.user)
+    
+    return render(request, 'pages/address.html', {'form': form,'data':data})

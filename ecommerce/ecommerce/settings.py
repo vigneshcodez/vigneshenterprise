@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -148,4 +150,4 @@ EMAIL_HOST_USER = 'rvignesh565@gmail.com'
 EMAIL_HOST_PASSWORD = 'ksocbjbdgkojyzbk'
 EMAIL_USE_TLS = True
 
-APPEND_SLASH = False
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

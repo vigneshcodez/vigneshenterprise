@@ -4,7 +4,7 @@ from .models import Cart, CartItem
 from .models import Product
 from django.http import JsonResponse
 
-@login_required
+@login_required(login_url='login_view')
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -16,12 +16,16 @@ def add_to_cart(request, product_id):
 
     return redirect('cart_detail')
 
-@login_required
+@login_required(login_url='login_view')
 def cart_detail(request):
-    cart = Cart.objects.get(user=request.user)
-    return render(request, 'pages/cart.html', {'cart': cart})
+    try:
+        cart = Cart.objects.get(user=request.user)
+        return render(request, 'pages/cart.html', {'cart': cart})
+    except Cart.DoesNotExist:
+        return render(request, 'pages/cart.html')
 
-@login_required
+
+@login_required(login_url='login_view')
 def remove_from_cart(request, product_id):
     cart = Cart.objects.get(user=request.user)
     cart_item = get_object_or_404(CartItem, cart=cart, product_id=product_id)
@@ -58,7 +62,7 @@ def remove_from_cart(request, product_id):
 #     return JsonResponse(response_data)
 
 
-@login_required
+@login_required(login_url='login_view')
 def update_cart_item(request, product_id, action):
     product = get_object_or_404(Product, id=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)

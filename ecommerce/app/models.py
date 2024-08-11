@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
+from ckeditor.fields import RichTextField
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, name, mobilenumber, password=None, **extra_fields):
@@ -76,6 +77,7 @@ class Slider(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(upload_to='slider/')
+    url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -85,6 +87,8 @@ class Slider(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    specification = RichTextField(blank=True, null=True)
+    information = RichTextField(blank=True, null=True)
     discount = models.IntegerField()
     stock = models.IntegerField()
     price = models.IntegerField()
@@ -184,57 +188,62 @@ def decrease_subcategory_count(sender, instance, **kwargs):
     category = instance.category
     category.subcategory_count -= 1
     category.save()
-# psdd
 
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     address_line1 = models.CharField(max_length=255)
     address_line2 = models.CharField(max_length=255, blank=True, null=True)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
     postal_code = models.CharField(max_length=20)
-    country = models.CharField(max_length=100)
+
 
     def __str__(self):
-        return f"{self.address_line1}, {self.city}, {self.country}"
+        return f"{self.address_line1}, {self.city}, {self.postal_code}"
 
 class Order(models.Model):
-    PAYMENT_METHODS = (
-        ('COD', 'Cash on Delivery'),
-        ('RAZORPAY', 'Razorpay'),
-    )
-    ORDER_STATUSES = (
+    STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('PROCESSING', 'Processing'),
         ('OUT_FOR_DELIVERY', 'Out for Delivery'),
         ('DELIVERED', 'Delivered'),
-        ('CANCELED', 'Canceled'),
-    )
+        ('CANCELLED', 'Cancelled'),
+    ]
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    is_paid = models.BooleanField(default=False)
+    payment_method = models.CharField(max_length=255)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     razorpay_order_id = models.CharField(max_length=255, blank=True, null=True)
-    order_status = models.CharField(max_length=20, choices=ORDER_STATUSES, default='PENDING')
 
-    def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+    def update_status(self, new_status):
+        if self.status == 'CANCELLED' and new_status != 'CANCELLED':
+            raise ValueError('Cannot change status from CANCELLED')
+        elif self.status != 'CANCELLED' and new_status == 'CANCELLED':
+            self._restore_stock()
+        self.status = new_status
+        self.save()
 
-    def update_status(self, status):
-        if status in dict(self.ORDER_STATUSES).keys():
-            self.order_status = status
-            self.save()
+    def _restore_stock(self):
+        for item in self.order_items.all():
+            item.product.stock += item.quantity
+            item.product.save()
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey('your_app.Product', on_delete=models.CASCADE)  # replace 'your_app.Product' with your product model
+    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    
-    def get_total_price(self):
-        return self.quantity * self.price
-    
-    def __str__(self):
-        return f"{self.quantity} of {self.product.name} for Order {self.order.id}"
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:  # If this is a new order item
+            self.product.stock -= self.quantity
+            self.product.save()
+        super().save(*args, **kwargs)
