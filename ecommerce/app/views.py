@@ -86,6 +86,7 @@ def productdetial(request, id):
     return render(request, 'pages/productdetial.html', context)
 
 def address(request):
+    categories = Category.objects.all()
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
@@ -98,4 +99,4 @@ def address(request):
         form = AddressForm()
         data = Address.objects.filter(user=request.user)
     
-    return render(request, 'pages/address.html', {'form': form,'data':data})
+    return render(request, 'pages/address.html', {'form': form,'data':data,'categories':categories})
