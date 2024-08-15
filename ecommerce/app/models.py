@@ -94,6 +94,9 @@ class Product(models.Model):
     price = models.IntegerField()
     discounted_price = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='products/')
+    # image1 = models.ImageField(upload_to='products/',null=True,blank=True)
+    # image2 = models.ImageField(upload_to='products/',null=True,blank=True)
+    # image3 = models.ImageField(upload_to='products/',null=True,blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
     featured = models.BooleanField(default=False)
@@ -247,3 +250,28 @@ class OrderItem(models.Model):
             self.product.stock -= self.quantity
             self.product.save()
         super().save(*args, **kwargs)
+
+
+# models.py
+
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'product')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.name}"
+
+
+class Advertisment(models.Model):
+    image = models.ImageField(upload_to='advertisment/')
+    line1 = models.CharField(max_length=75)
+    line2 = models.CharField(max_length=100)
+    url = models.URLField(null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.line1} - {self.line2}"

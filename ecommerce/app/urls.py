@@ -23,6 +23,7 @@ urlpatterns = [
 
     path('', views.index, name='index'),
     path('about', views.about, name='about'),
+    path('myshop', views.myshop, name='myshop'),
     path('signup/', signup_view, name='signup_view'),
     path('login/', login_view, name='login_view'),
     path('logout/', logout_view, name='logout_view'),
@@ -30,6 +31,9 @@ urlpatterns = [
     path('password-reset/', RequestResetEmailView.as_view(), name='password_reset'),
     path('set-new-password/<uidb64>/<token>/', SetNewPasswordView.as_view(), name='set_new_password'),
     path('address', views.address, name='address'),
+    path('search/', views.product_search, name='product_search'),
+
+    
 
     # 
     path('shop/<str:name>', views.shop, name='shop'),
@@ -49,4 +53,9 @@ urlpatterns = [
     # Razorpay Webhook for Payment Confirmation
     path('payment/webhook/', razorpay_webhook, name='razorpay_webhook'),
     path('checkoutpage/', checkoutpage, name='checkoutpage'),
+
+    # whishlist
+    path('wishlist/add/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('wishlist/remove/<int:product_id>/', views.remove_from_wishlist, name='remove_from_wishlist'),
+    path('wishlist/', views.view_wishlist, name='view_wishlist'),
 ]

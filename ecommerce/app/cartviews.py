@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Cart, CartItem
+from .models import Cart, CartItem, Category
 from .models import Product
 from django.http import JsonResponse
 
@@ -18,11 +18,12 @@ def add_to_cart(request, product_id):
 
 @login_required(login_url='login_view')
 def cart_detail(request):
+    categories = Category.objects.all()
     try:
         cart = Cart.objects.get(user=request.user)
-        return render(request, 'pages/cart.html', {'cart': cart})
+        return render(request, 'pages/cart.html', {'cart': cart,'categories':categories})
     except Cart.DoesNotExist:
-        return render(request, 'pages/cart.html')
+        return render(request, 'pages/cart.html',{'categories':categories})
 
 
 @login_required(login_url='login_view')

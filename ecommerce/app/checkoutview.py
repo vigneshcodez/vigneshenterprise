@@ -3,9 +3,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import razorpay
-from .models import Order, Address, OrderItem,Product
+from .models import Order, Address, OrderItem,Product,Category
 from .models import Cart,Address  # Adjust based on your cart implementation
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 client = razorpay.Client(auth=("YOUR_KEY_ID", "YOUR_KEY_SECRET"))
 
@@ -13,6 +14,9 @@ client = razorpay.Client(auth=("YOUR_KEY_ID", "YOUR_KEY_SECRET"))
 def checkoutpage(request):
     user = request.user
     address = Address.objects.filter(user=user)
+    if len(address) == 0:
+        messages.warning(request, 'please add address beforeplace order')
+        return redirect('address')
     return render(request,'pages/checkout.html',{'addresses':address})
 
 @login_required(login_url='login_view')
@@ -24,7 +28,7 @@ def checkout(request):
     try:
         address = Address.objects.get(id=address_id)
     except Address.DoesNotExist:
-        return JsonResponse({'error': 'Invalid address'}, status=400)
+        return render(request,'pages/address.html')
 
     cart = Cart.objects.get(user=request.user)
     total_amount = cart.get_total() + 10  # Add shipping cost
@@ -58,7 +62,9 @@ def checkout(request):
 
     # For Cash on Delivery
     order.update_status('PENDING')
-    return JsonResponse({'message': 'Order placed successfully', 'order_id': order.id})
+    return render(request,'pages/ordersuccess.html')
+
+
 @login_required(login_url='login_view')
 @require_POST
 def cancel_order(request, order_id):
@@ -88,6 +94,7 @@ def razorpay_webhook(request):
 
 @login_required(login_url='login_view')
 def orders(request):
+    categories = Category.objects.all()
     placedorders = Order.objects.filter(user=request.user)
     content = []
     for i in placedorders:
@@ -114,4 +121,4 @@ def orders(request):
         content.append(cartdata)
         content.reverse()
         print(content)
-    return render(request,'pages/orders.html',{'data':content})
+    return render(request,'pages/orders.html',{'data':content,'categories':categories})

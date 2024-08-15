@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %} {% block title %} {% endblock title %} 
+{% block style %} {% endblock style %} {% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <h2 class="text-success">Success !!!</h2>
+  <hp>
+    order placed succesfully our customer care executive will call for delivary
+    and you can also check order status on <a href="{% url 'orders' %}" class="text-primary">my orders</a>
+  </hp>
+  <p>purchace more <a href="{% url 'myshop' %}">Shop</a></p>
+
+</div>
+{% endblock content %}
