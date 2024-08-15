@@ -101,10 +101,10 @@
                                                 <h5 class="mx-2">&#8377;${product.discounted_price}/-</h5>
                                             </div>
                                             <div class='d-flex justify-content-center'>
-                                                <a href="http://127.0.0.1:8000/productdetial/${ product.id }" class='mx-1'><button class="btn btn-info text-white">Buy now</button></a>
+                                                <a href="http://127.0.0.1:8000/productdetial/${ product.id }" class='mx-1'><button class="btn btn-info text-white">View Details</button></a>
                                                 <form method="post" action="http://127.0.0.1:8000/add_to_cart/${product.id}/" class='mx-1'>
                                                     {% csrf_token %}
-                                                    <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                                                    <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Shop now</button>
                                                 </form>
                                             </div>
                                         </div>

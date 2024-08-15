@@ -184,7 +184,8 @@ def add_to_wishlist(request, product_id):
         message = "Product added to wishlist"
     else:
         message = "Product is already in your wishlist"
-    return JsonResponse({'message': message})
+    messages.success(request, message)
+    return redirect('view_wishlist')
 
 @login_required(login_url='login_view')
 def remove_from_wishlist(request, product_id):

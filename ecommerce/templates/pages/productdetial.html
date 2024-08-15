@@ -70,14 +70,16 @@
         
 
                     <h3 class="font-weight-semi-bold mb-4">Price &#8377;{{product.discounted_price}}/-</h3>
-                    <p class="mb-4">{{product.description}}</p>
+                    
+                    <p class="mb-4"><b>Description - </b>{{product.description}}</p>
 
 
                     <div class="d-flex align-items-center mb-4 pt-2">
  
-                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        <form method="post" action="{% url 'add_to_cart' product.id %}" class="d-flex">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                            <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Buy now</button>
+                            <a class="btn btn-outline-dark btn-square mx-2" href="{% url 'add_to_wishlist' product.id %}"><i class="far fa-heart"></i></a>
                         </form>
 
                     </div>

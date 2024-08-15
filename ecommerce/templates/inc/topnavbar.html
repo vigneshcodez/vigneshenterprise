@@ -12,7 +12,7 @@
             <div class="d-inline-flex align-items-center">
                 <div class="d-flex">
                   {% if request.user.is_authenticated %}
-                  <span><span>hello, </span>{{request.user.name}} <a href="{% url 'logout_view' %}" style="color: red !important;">Logout</a></span>
+                  <span><span>hello, <i class="fa-solid fa-user"></i> </span>{{request.user.name}} <a href="{% url 'logout_view' %}" style="color: red !important;">Logout</a></span>
                   {% else %}
    
                         <button class="dropdown-item bg-primary mx-1" type="button" > <a href="{% url 'signup_view' %}" style="color: white !important;">Register</a>  </button>

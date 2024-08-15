@@ -51,18 +51,17 @@
         >
           <div class="navbar-nav mr-auto py-0">
             <a href="{% url 'index' %}" class="nav-item nav-link active"
-              > <i class="fas fa-home text-primary "></i> Home</a
+              ><i class="fa-solid fa-house"></i> Home</a
             >
             <a href="{% url 'myshop' %}" class="nav-item nav-link "
-              >shop</a
+              ><i class="fa-solid fa-shop"></i> shop</a
             >
-            <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
-            <a href="{% url 'orders' %}" class="nav-item nav-link">Orders</a>
-            <a href="{% url 'cart_detail' %}" class="nav-item nav-link"><i class="fas fa-shopping-cart text-primary"></i> Cart</a>
-            <a href="{% url 'orders' %}" class="nav-item nav-link"><i class="fas fa-heart text-primary "></i> Whishlist</a>
+            <a href="{% url 'orders' %}" class="nav-item nav-link"><i class="fa-solid fa-box"></i> Orders</a>
+            <a href="{% url 'cart_detail' %}" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+            <a href="{% url 'orders' %}" class="nav-item nav-link"><i class="fa-solid fa-heart"></i> Whishlist</a>
 
             {% if request.user.is_authenticated %}
-            <a href="{% url 'address' %}" class="nav-item nav-link">Address</a>
+            <a href="{% url 'address' %}" class="nav-item nav-link"><i class="fa-solid fa-address-book"></i> Address</a>
             {% endif %}
           </div>
 
