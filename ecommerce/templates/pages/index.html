@@ -10,57 +10,10 @@ home
 
 {% block content %}
 {% include 'inc/slider.html' %}
-{% include 'inc/features.html' %}
 {% include 'inc/categories.html' %}
 {% include 'inc/offers.html' %}
+{% include 'inc/features.html' %}
 {% include 'inc/featuredproduct.html' %}
 
 
-
-<!-- <script>
-    $(document).ready(function() {
-        function loadProducts(page) {
-            $.ajax({
-                url: "{% url 'index' %}",
-                data: {
-                    'page': page
-                },
-                success: function(response) {
-                    var productsList = $('#products-list');
-                    productsList.empty();
-                    $.each(response.products, function(index, product) {
-                        productsList.append('<li class="list-group-item">' + product.name + ' - ' + product.price + '</li>');
-                    });
-
-                    // Update pagination
-                    if (response.has_previous) {
-                        $('#previous-page').removeClass('disabled');
-                        $('#previous-page a').attr('data-page', response.previous_page_number);
-                    } else {
-                        $('#previous-page').addClass('disabled');
-                        $('#previous-page a').attr('data-page', 1);
-                    }
-
-                    if (response.has_next) {
-                        $('#next-page').removeClass('disabled');
-                        $('#next-page a').attr('data-page', response.next_page_number);
-                    } else {
-                        $('#next-page').addClass('disabled');
-                        $('#next-page a').attr('data-page', response.next_page_number);
-                    }
-                }
-            });
-        }
-
-        // Initial load
-        loadProducts(1);
-
-        // Pagination click
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            var page = $(this).data('page');
-            loadProducts(page);
-        });
-    });
-</script> -->
 {% endblock content %}

@@ -9,13 +9,12 @@
                     <li data-target="#header-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item position-relative active" style="height: 430px;">
+                    <div class="carousel-item position-relative active ccc" style="height: 430px;">
                         <img class="position-absolute w-100 h-100" src="{% static 'media/myimages/vellorefort.jpg'%}" style="object-fit: cover;">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{item.name}}</h1>
-                                <h3 class="mx-md-5 px-5 animate__animated animate__bounceIn text-white">இது நம்ம <span class="text-primary">வேலூரின்</span> முதல் ஆன்லைன்  கடை </h3>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                <p class="mx-md-5 px-1 animate__animated animate__bounceIn text-white tsize" style="font-size: 35px;">இது நம்ம <span class="text-primary">வேலூரின்</span> முதல் ஆன்லைன்  கடை </p>
+                                <a class="btn btn-outline-light py-1 px-1 mt-0 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -41,22 +40,37 @@
             </div>
         </div>
         <div class="col-lg-4">
+
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ad1.image.url}}" alt="">
                 <div class="offer-text">
-                    <h3 class="text-white mb-3">{{ad1.line2}}</h3>
-                    <h5 class="text-white text-uppercase">{{ad1.line1}}</h5>
+                    <h5 class="text-white mb-1">{{ad1.line2}}</h5>
+                    <h6 class="text-white text-uppercase">{{ad1.line1}}</h6>
                     <a href="{{ad1.url}}" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ad2.image.url}}" alt="">
                 <div class="offer-text">
-                    <h3 class="text-white mb-3">{{ad2.line2}}</h3>
+                    <h5 class="text-white mb-1">{{ad2.line2}}</h5>
                     <h6 class="text-white text-uppercase">{{ad2.line1}}</h6>
                     <a href="{{ad2.url}}" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
+            
+
         </div>
+        
     </div>
 </div>
+
+<style>
+    @media only screen and (max-width: 600px) {
+.ccc{
+    height: 200px !important;
+}
+.tsize{
+    font-size: small !important;
+}
+}
+</style>
