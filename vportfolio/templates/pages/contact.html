@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vignesh | web developer</title>
+    <!-- CSS 
+    ============================================ -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/feature.css' %}">
+    <!-- Favicons -->
+    <link href="{% static 'assets/images/favicon.ico' %}" rel="icon">
+    <link href="{% static 'assets/images/apple-touch-icon.png' %}" rel="apple-touch-icon">
+    <!-- Style css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+</head>
+<body class="template-color-1 spybody" data-spy="scroll" data-target=".navbar-example2" data-offset="70" >
+
+            <!-- Start Contact section -->
+        <div class="rn-contact-area rn-section-gap section-separator" id="contacts">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center">
+                            <span class="subtitle">Contact</span>
+                            <h2 class="title">Get Touch With Us</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt--50 mt_md--40 mt_sm--40 mt-contact-sm">
+                    <div class="col-lg-5">
+                        <div class="contact-about-area">
+                            <div class="thumbnail">
+                                {% comment %} <img src="assets/images/3d/Saly-31.png" alt="contact-img"> {% endcomment %}
+                            </div>
+                            <div class="title-area">
+                                <h4 class="title">VIGNESH RAVI</h4>
+                                <span>Trust is our asset</span>
+                            </div>
+                            <div class="description mb-3">
+                                <p>Feel free to contact with me..
+                                </p>
+                                <span class="phone">Phone: <a href="" class="text-white">+91 8667605526</a></span>
+                                <span class="mail">Email: <a href="" class="text-white">rvignesh565@gmail.com</a></span>
+                                <span class="mail">Address: <a href="" class="text-white">Avarampalayam, Coimbatore-06</a></span>
+                            </div>
+                            <div class="mb-4 mt-0">
+                                <p class="m-0"> My Loaction
+                                </p>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123723265622!2d76.98112337771752!3d11.029343061121073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858476d6d081b%3A0x3feadaf46c190733!2sREDROSE%20BAKERY!5e0!3m2!1sen!2sin!4v1721916620426!5m2!1sen!2sin" style="width: 100%;" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                            </div>
+                            <div class="social-area mb-2">
+                                <div class="name">FIND WITH ME</div>
+                                <div class="social-icone">
+                                    <a href="#"><i data-feather="facebook" class="text-danger"></i></a>
+                                    <a href="#"><i data-feather="linkedin" class="text-danger"></i></a>
+                                    <a href="#"><i data-feather="instagram" class="text-danger"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-aos-delay="600" class="col-lg-7 contact-input">
+                        <div class="contact-form-wrapper">
+                            <div class="introduce">
+
+                                <form class="rnt-contact-form rwt-dynamic-form row"  method="POST">
+                                    {% csrf_token %}
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="contact-name">Your Name</label>
+                                            <input class="form-control form-control-lg text-white" name="name" id="contact-name" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="contact-phone">Mobile Number</label>
+                                            <input class="form-control text-white" name="mobile" id="mobile" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="contact-email">Email</label>
+                                            <input class="form-control form-control-sm text-white" id="contact-email" name="email" type="email">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="subject">subject</label>
+                                            <input class="form-control form-control-sm text-white" id="subject" name="subject" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="contact-message">Your Message</label>
+                                            <textarea name="message" id="contact-message" cols="30" rows="10" class="text-white"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="rn-btn">
+                                            <span>SEND MESSAGE</span>
+                                            <i data-feather="arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Contuct section -->
+
+
+        <!-- JS ============================================ -->
+        <script src="{% static 'assets/js/vendor/jquery.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/modernizer.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/feather.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/slick.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/bootstrap.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/text-type.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/wow.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/aos.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/particles.js' %}"></script>
+        <!-- main JS -->
+</body>
+</html>

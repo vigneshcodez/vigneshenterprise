@@ -1,0 +1,45 @@
+        <!-- Start Portfolio Area -->
+        <div class="rn-portfolio-area rn-section-gap section-separator" id="blog" style="margin-top: 0px !important;background-color: white;margin-top: -25px !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <span class="subtitle">BLOG</span>
+                            <h2 class="title">All blogs</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row--25 mt--10 mt_md--10 mt_sm--10">
+                    {% for item in blog %}
+                    <!-- Start Single Portfolio -->
+                    <div data-aos="fade-up" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
+                        <div class="rn-portfolio" data-toggle="modal" data-target="#exampleModalCenter">
+                            <div class="inner">
+                                <div class="thumbnail">
+                                    <a href="{% url 'blogpage' item.id %}">
+                                        <img src="{{item.image.url}}" alt="Personal Portfolio Images">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <div class="category-info">
+                                        <div class="category-list">
+                                            <a href="javascript:void(0)">{{item.title}}</a>
+                                        </div>
+                                        <div class="meta">
+
+                                        </div>
+                                    </div>
+                                    <h4 class="title"><a href="{% url 'blogpage' item.id %}">{{item.description}}..<i
+                                                class="feather-arrow-up-right"></i></a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Portfolio -->
+                     {% endfor %}
+                </div>
+            </div>
+            <p class="text-center">end</p>
+        </div>
+        <!-- End portfolio Area -->

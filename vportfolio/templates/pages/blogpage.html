@@ -1,0 +1,55 @@
+{% extends "base/base.html" %} 
+
+{% block content %}
+<style>
+    .bannerimg{
+        height: 500px;
+    }
+    @media only screen and (max-width: 600px) {
+
+    .bannerimg{
+        height: 250px;
+    }
+}
+</style>
+<div class="container-fluid" style="background-color: white;">
+
+    
+    <main class="main-page-wrapper" style="border-bottom: 0px solid transparent !important;">
+        <br>
+        <a href="{% url 'index' %}" style="margin-top: 10px !important;"><span><span class="text-danger"><</span> Back to site </span></a>
+
+                <!-- Start Portfolio Area -->
+                <div class="container">
+
+                    <h2 class="text-center text-danger">{{blog.title}}</h2>
+                    <p class="text-center">{{blog.description}}</p>
+                    <div style="width: 100%;overflow: hidden;" class="bannerimg">
+                        <img src="{{blog.bannerimage.url}}" alt="" width="100%" >
+                    </div>
+
+                    <!-- <div class="" style="height: 300px;width: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;background-image: url({{blog.bannerimage.url}});"></div> -->
+
+                    <div class="mt-3">{{blog.content|safe}}</div>
+
+                    <!-- <img src="{{blog.image.url}}" alt=""> -->
+
+                </div>
+                <!-- End portfolio Area -->
+
+
+        <!-- Back to  top Start -->
+        <div class="backto-top">
+            <div>
+                <i data-feather="arrow-up"></i>
+            </div>
+        </div>
+        <!-- Back to top end -->
+
+    </main>
+
+    {% include 'inc/footer.html' %}
+
+
+</div>
+{% endblock content%}
